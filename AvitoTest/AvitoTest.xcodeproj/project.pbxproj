@@ -14,6 +14,13 @@
 		5914872A2A9BB2C0001C5173 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 591487282A9BB2C0001C5173 /* LaunchScreen.storyboard */; };
 		591487322A9CAC5A001C5173 /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591487312A9CAC5A001C5173 /* CustomCollectionCell.swift */; };
 		591487362A9CD778001C5173 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591487352A9CD778001C5173 /* CardViewController.swift */; };
+		591487392A9DE5CC001C5173 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591487382A9DE5CB001C5173 /* NetworkService.swift */; };
+		5914873C2A9DE87E001C5173 /* AdModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5914873B2A9DE87E001C5173 /* AdModel.swift */; };
+		5914873E2A9DF14B001C5173 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5914873D2A9DF14B001C5173 /* CardModel.swift */; };
+		591487402A9E1961001C5173 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5914873F2A9E1961001C5173 /* AlertFactory.swift */; };
+		591487432A9E1D21001C5173 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591487422A9E1D21001C5173 /* CustomAlertView.swift */; };
+		591487452A9E2E73001C5173 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591487442A9E2E73001C5173 /* ImageLoader.swift */; };
+		591487472A9E3886001C5173 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591487462A9E3886001C5173 /* ColorConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +33,13 @@
 		5914872B2A9BB2C0001C5173 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		591487312A9CAC5A001C5173 /* CustomCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
 		591487352A9CD778001C5173 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		591487382A9DE5CB001C5173 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		5914873B2A9DE87E001C5173 /* AdModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdModel.swift; sourceTree = "<group>"; };
+		5914873D2A9DF14B001C5173 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		5914873F2A9E1961001C5173 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
+		591487422A9E1D21001C5173 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		591487442A9E2E73001C5173 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		591487462A9E3886001C5173 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +72,14 @@
 		5914871C2A9BB2BE001C5173 /* AvitoTest */ = {
 			isa = PBXGroup;
 			children = (
+				591487462A9E3886001C5173 /* ColorConstants.swift */,
+				5914873F2A9E1961001C5173 /* AlertFactory.swift */,
 				5914871D2A9BB2BE001C5173 /* AppDelegate.swift */,
+				5914873A2A9DE815001C5173 /* Models */,
 				5914871F2A9BB2BE001C5173 /* SceneDelegate.swift */,
+				591487412A9E1D03001C5173 /* CustomView */,
 				591487332A9CD66C001C5173 /* Controllers */,
+				591487372A9DE5AD001C5173 /* NetworkService */,
 				591487342A9CD6E2001C5173 /* CustomCells */,
 				591487262A9BB2C0001C5173 /* Assets.xcassets */,
 				591487282A9BB2C0001C5173 /* LaunchScreen.storyboard */,
@@ -84,6 +103,33 @@
 				591487312A9CAC5A001C5173 /* CustomCollectionCell.swift */,
 			);
 			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		591487372A9DE5AD001C5173 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				591487382A9DE5CB001C5173 /* NetworkService.swift */,
+				591487442A9E2E73001C5173 /* ImageLoader.swift */,
+			);
+			name = NetworkService;
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		5914873A2A9DE815001C5173 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5914873B2A9DE87E001C5173 /* AdModel.swift */,
+				5914873D2A9DF14B001C5173 /* CardModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		591487412A9E1D03001C5173 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				591487422A9E1D21001C5173 /* CustomAlertView.swift */,
+			);
+			name = CustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,11 +202,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				591487432A9E1D21001C5173 /* CustomAlertView.swift in Sources */,
 				591487362A9CD778001C5173 /* CardViewController.swift in Sources */,
 				591487222A9BB2BE001C5173 /* ViewController.swift in Sources */,
+				591487472A9E3886001C5173 /* ColorConstants.swift in Sources */,
 				591487322A9CAC5A001C5173 /* CustomCollectionCell.swift in Sources */,
+				5914873C2A9DE87E001C5173 /* AdModel.swift in Sources */,
+				591487452A9E2E73001C5173 /* ImageLoader.swift in Sources */,
 				5914871E2A9BB2BE001C5173 /* AppDelegate.swift in Sources */,
+				5914873E2A9DF14B001C5173 /* CardModel.swift in Sources */,
+				591487392A9DE5CC001C5173 /* NetworkService.swift in Sources */,
 				591487202A9BB2BE001C5173 /* SceneDelegate.swift in Sources */,
+				591487402A9E1961001C5173 /* AlertFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
