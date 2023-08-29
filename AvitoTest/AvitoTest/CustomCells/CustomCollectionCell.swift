@@ -9,31 +9,31 @@ import UIKit
 
 final class CustomCollectionCell: UICollectionViewCell {
     
-    var tap: ((UIImage, String) -> Void)?
+    var tap: ((String) -> Void)?
     
-    private let mainImage =  {
-        let imageDefault = UIImage(systemName: "person")
-        let mainImage = UIImageView(image: imageDefault)
+    private var imageLoader: ImageLoaderProtocol?
+    
+    private let mainImage: UIImageView = {
+        let mainImage = UIImageView()
+        mainImage.backgroundColor = ColorConstants.loadImageColor
         return mainImage
     }()
     
     private let mainLabel = {
-       let mainLabel = UILabel()
-        mainLabel.text = "Тестовый товар"
+        let mainLabel = UILabel()
         mainLabel.font = .systemFont(ofSize: 20)
+        mainLabel.numberOfLines = 2
         return mainLabel
     }()
     
     private let priceLabel = {
         let priceLabel = UILabel()
-        priceLabel.text = "55.000"
         priceLabel.font = .boldSystemFont(ofSize: 20)
         return priceLabel
     }()
     
     private let locationLabel = {
         let locationLabel = UILabel()
-        locationLabel.text = "Москва"
         locationLabel.font = .systemFont(ofSize: 15)
         locationLabel.textColor = .systemGray
         return locationLabel
@@ -41,11 +41,12 @@ final class CustomCollectionCell: UICollectionViewCell {
     
     private let dateCreated = {
         let dateCreated = UILabel()
-        dateCreated.text = "22.04.19"
         dateCreated.font = .systemFont(ofSize: 15)
         dateCreated.textColor = .systemGray
         return dateCreated
     }()
+    
+    private var id = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,11 +60,38 @@ final class CustomCollectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageLoader?.stop()
+        mainImage.image = nil
+        id = ""
+        mainLabel.text = nil
+        priceLabel.text = nil
+        locationLabel.text = nil
+        dateCreated.text = nil
+    }
+    
     @objc func nextScreen() {
-        tap?(mainImage.image ?? UIImage(), mainLabel.text ?? " ")
+        tap?(id)
         
     }
     
+    func configure(imageLoader: ImageLoaderProtocol) {
+        self.imageLoader = imageLoader
+    }
+    
+    func updateCell(model: Announcement) {
+        id = model.id
+        mainLabel.text = model.title
+        priceLabel.text = model.price
+        locationLabel.text = model.location
+        dateCreated.text = model.createdDate
+        imageLoader?.getImage(imageUrl: model.imageURL) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.mainImage.image = image
+            }
+        }
+    }
     
     private func setupUI() {
         contentView.addSubview(mainImage)
@@ -81,33 +109,41 @@ final class CustomCollectionCell: UICollectionViewCell {
         dateCreated.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            mainImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainImage.widthAnchor.constraint(equalToConstant: frame.size.width/2),
-            mainImage.heightAnchor.constraint(equalTo: mainImage.widthAnchor),
+            mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Offset.mainImageTopAnchor),
+            mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Offset.mainImageLeadingAnchor),
+            mainImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: Offset.mainImageTrailingAnchor),
+            mainImage.bottomAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-            mainLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 5),
+            mainLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: Offset.labelTopAnchor),
             mainLabel.leadingAnchor.constraint(equalTo: mainImage.leadingAnchor),
             mainLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainLabel.heightAnchor.constraint(equalToConstant: 20),
+            mainLabel.heightAnchor.constraint(equalToConstant: frame.size.height / Offset.mainLabelHeightAnchor),
             
-            priceLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 5),
+            priceLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: Offset.labelTopAnchor),
             priceLabel.leadingAnchor.constraint(equalTo: mainImage.leadingAnchor),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            priceLabel.heightAnchor.constraint(equalToConstant: 20),
+            priceLabel.heightAnchor.constraint(equalToConstant: frame.size.height / Offset.labelHeightAnchor),
             
-            locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 5),
+            locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: Offset.labelTopAnchor),
             locationLabel.leadingAnchor.constraint(equalTo: mainImage.leadingAnchor),
             locationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            locationLabel.heightAnchor.constraint(equalToConstant: 20),
+            locationLabel.heightAnchor.constraint(equalToConstant: frame.size.height / Offset.labelHeightAnchor),
             
-            dateCreated.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 5),
+            dateCreated.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: Offset.labelTopAnchor),
             dateCreated.leadingAnchor.constraint(equalTo: mainImage.leadingAnchor),
             dateCreated.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            dateCreated.heightAnchor.constraint(equalToConstant: 20),
-          dateCreated.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            dateCreated.heightAnchor.constraint(equalToConstant: frame.size.height / Offset.labelHeightAnchor)
         ])
     }
+}
 
+private extension CustomCollectionCell {
+    enum Offset {
+        static let labelTopAnchor: CGFloat = 3
+        static let mainImageTopAnchor: CGFloat = 10
+        static let mainImageLeadingAnchor: CGFloat = 5
+        static let mainImageTrailingAnchor: CGFloat = -5
+        static let mainLabelHeightAnchor: CGFloat = 6
+        static let labelHeightAnchor: CGFloat = 12
+    }
 }
